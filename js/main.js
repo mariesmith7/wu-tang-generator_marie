@@ -1,39 +1,45 @@
-// create a function for a coin flip 
 // getElementById
 
 // Create a simple web application
 // Use http to create the server and fs to read your html file.
-// Try creating a coin flip guessing game
+// Try creating a cWutang generator 
+// 'Raekwon','Method Man',' Ghostface Killah', 'Inspectah Deck', Ol Dirty Bastard'
 
+
+
+// get references for the buttons
 document.addEventListener('DOMContentLoaded', function () {
-  // get references for the buttons
-  const headsButton = document.getElementById('Heads')
-  const tailsButton = document.getElementById('Tails')
-  const statusSpan = document.getElementById('status')
+  const form = document.getElementById('nameForm');
+  const result = document.getElementById('result');
 
-  // heads is click
-  headsButton.addEventListener('click', function() {
-    playGame('Heads')
-  })
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
 
-  // tails is click
-  tailsButton.addEventListener('click', function () {
-    playGame('Tails')
-  })
+    // get answers from the form
+    const city = form.city.value.toLowerCase()
+    const weather = form.weather.value.toLowerCase()
+    const personality = form.personality.value.toLowerCase()
+    const dance = form.dance.value.toLowerCase()
+    const weapon = form.weapon.value.toLowerCase()
 
-  // fuctions for the game
-  function playGame(userChoice) {
-    // Randomly pick Heads or Tails
-    const options = ['Heads', 'Tails']
-    const randomIndex = Math.floor(Math.random() * options.length)
-    const choice = options
-    const coinResult = choice[randomIndex]
+    // name in the arr 
+    let nameList = []
 
-    // Check if user guessed right
-    if (userChoice === coinResult) {
-      statusSpan.textContent = `You chose ${userChoice}. The coin landed on ${coinResult}. You win!`
+    // function to check answers and choose names
+    if (personality.includes('wild') || weapon.includes('mic')) {
+      nameList = ['Ol\' Dirty Bastard', 'Ghostface Killah']
+    } else if (personality.includes('cool') || dance.includes('smooth')) {
+      nameList = ['Method Man', 'Raekwon']
+    } else if (weather.includes('fog') || personality.includes('quiet')) {
+      nameList = ['Inspectah Deck']
     } else {
-      statusSpan.textContent = `You chose ${userChoice}. The coin landed on ${coinResult}. You lose.`
+      nameList = ['Raekwon', 'Method Man', 'Ghostface Killah', 'Inspectah Deck', 'Ol\' Dirty Bastard']
     }
-  }
-})
+
+    // randomize
+    const randomName = nameList[Math.floor(Math.random() * nameList.length)];
+
+    // display result
+    result.textContent = 'Your Wu-Tang name is: ' + randomName;
+  });
+});
